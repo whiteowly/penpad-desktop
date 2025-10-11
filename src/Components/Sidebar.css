@@ -1,0 +1,110 @@
+/* sidebar.css */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 60px;              /* collapsed */
+  height: 100vh;
+  background-color: #ffeaed;
+  color: white;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  z-index: 100;
+}
+/*
+ width: 28%;
+  background-color: #ffeaed;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+*/
+.sidebar:hover {
+  width: 285px;             /* expanded */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 20px;
+  margin: 1;
+}
+
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background: #ff8899;
+}
+
+.menu-item svg {
+  min-width: 22px;
+  min-height: 22px;
+}
+
+.menu-text {
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+
+.sidebar:hover .menu-text {
+  opacity: 1;
+}
+
+
+.menu-item.active {
+  background: #ff8899;
+}
+
+
+.mainContent {
+  flex: 1;
+              
+  transition: margin-left 0.3s ease;
+}
+
+/* When sidebar expands, pushContent */
+.sidebar:hover ~ .mainContent {
+  margin-left: 285px;
+}
+
+
+.sidebar ul {
+  list-style: none;   /* removes bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar {
+  background: #ffeaed;   /* dark background */
+  color: black;          /* white text */
+}
+
+.logo-container {
+ padding: 10px;
+
+}
+
+.logo {
+  max-width: 250px; 
+
+}
+.sidebar:hover .logo{
+Content: url("./logo.png");
+}
+
+
+
+
+

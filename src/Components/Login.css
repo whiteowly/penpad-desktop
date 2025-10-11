@@ -1,0 +1,51 @@
+/* Apply to the whole login container */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+ background-color: #fcdae3;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Logo styling */
+.login-logo {
+  width: 400px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Title styling */
+.login-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #d63384; /* Deep pink */
+  margin-bottom: 30px;
+}
+
+/* Button group layout */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Button styling */
+.login-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #ff8fab;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px;
+}
+
+.login-button:hover {
+  background-color: #ff6f9c;
+}

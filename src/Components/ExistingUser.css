@@ -1,0 +1,63 @@
+.existinguser-container {
+  min-height: 100vh;
+  background-color: #ffe6f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+}
+
+.existinguser-logo {
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.existinguser-title {
+  font-size: 28px;
+  color: #d63384;
+  margin-bottom: 20px;
+}
+
+.existinguser-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.existinguser-form input {
+  padding: 10px 15px;
+  border: 1px solid #ffc0cb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.existinguser-form button {
+  padding: 12px;
+  background-color: #ff8fab;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.existinguser-form button:hover {
+  background-color: #ff6f9c;
+}
+
+.signup-redirect {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.signup-link {
+  color: #d63384;
+  cursor: pointer;
+  text-decoration: underline;
+}
