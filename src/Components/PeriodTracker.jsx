@@ -3,23 +3,26 @@ import "./Journal.css";
 import Sidebar from "./sidebar";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../AuthContext";
+import ErrorBoundary from "../ErrorBoundary";
 
-export default function PeriodTracker() {
+function PeriodTracker() {
   const [lastPeriodDate, setLastPeriodDate] = useState("");
   const [cycleLength, setCycleLength] = useState(28); // Default cycle length is 28 days
   const [predictedDate, setPredictedDate] = useState(null);
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        const fetchUserData = async () => {
-          const userDocRef = doc(db, "users", currentUser.uid);
+    if (user) {
+      console.log("User ID:", user.uid); // Log the user ID
+      const fetchUserData = async () => {
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          console.log("Fetching document at path:", `users/${user.uid}`);
           const userDoc = await getDoc(userDocRef);
 
           if (userDoc.exists()) {
+            console.log("Document data:", userDoc.data());
             const data = userDoc.data();
             setLastPeriodDate(data.lastPeriodDate);
             setCycleLength(data.cycleLength);
@@ -29,14 +32,16 @@ export default function PeriodTracker() {
               nextDate.setDate(lastDate.getDate() + parseInt(data.cycleLength));
               setPredictedDate(nextDate.toLocaleDateString());
             }
+          } else {
+            console.log("No document found for user ID:", user.uid);
           }
-        };
-        fetchUserData();
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchUserData();
+    }
+  }, [user]);
 
   const saveUserData = async () => {
     if (!user) {
@@ -97,5 +102,14 @@ export default function PeriodTracker() {
         )}
       </div>
     </div>
+  );
+}
+
+// Wrap PeriodTracker in ErrorBoundary
+export default function PeriodTrackerWithBoundary() {
+  return (
+    <ErrorBoundary>
+      <PeriodTracker />
+    </ErrorBoundary>
   );
 }
