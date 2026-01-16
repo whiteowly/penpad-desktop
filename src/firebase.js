@@ -2,22 +2,22 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAaTaGHJVq9ouy-9TbkeJ7xQ-f5GCh6u4g",
-  authDomain: "penpad-d7362.firebaseapp.com",
-  projectId: "penpad-d7362",
-  storageBucket: "penpad-d7362.firebasestorage.app",
-  messagingSenderId: "923363544696",
-  appId: "1:923363544696:web:67be1c4492978abc9da78d",
-  measurementId: "G-F8NCWJ07TT"
+  apiKey: "AIzaSyBR7-7srafs8bUZwZFRY1VRPhkMRUBd8jY",
+  authDomain: "penpad-463c9.firebaseapp.com",
+  projectId: "penpad-463c9",
+  storageBucket: "penpad-463c9.firebasestorage.app",
+  messagingSenderId: "484768151659",
+  appId: "1:484768151659:web:f557c1a57a9f01e0d9592e"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
