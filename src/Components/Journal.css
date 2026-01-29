@@ -6,14 +6,6 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Sidebar styling */
-.sidebar {
-  width: 20%;
-  background-color: #343a40;
-  color: white;
-  padding: 20px;
-}
-
 /* Main content styling */
 .main-content {
   flex: 1;
@@ -52,7 +44,8 @@
   gap: 10px;
 }
 
-.Form input, .Form textarea {
+.Form input,
+.Form textarea {
   padding: 10px;
   border: 1px solid #ced4da;
   border-radius: 5px;

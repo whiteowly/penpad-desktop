@@ -1,0 +1,187 @@
+.period-page {
+    display: flex;
+    min-height: 100vh;
+    background-color: #fff0f3;
+}
+
+.period-content {
+    margin-left: 60px;
+    padding: 32px;
+    flex: 1;
+    max-width: 1200px;
+}
+
+.period-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.period-header h1 {
+    font-size: 2.5rem;
+    color: #590d22;
+    margin: 0;
+}
+
+.header-stats {
+    display: flex;
+    gap: 24px;
+}
+
+.top-stat {
+    background: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 3px solid #ff4d6d;
+}
+
+.top-stat .label {
+    font-size: 0.75rem;
+    color: #ff758f;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.top-stat .value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #590d22;
+}
+
+.period-main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.period-card {
+    background: white;
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.period-card h2 {
+    font-size: 1.125rem;
+    color: #590d22;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.chart-card {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.chart-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.day-display {
+    position: absolute;
+    text-align: center;
+    pointer-events: none;
+}
+
+.day-display span {
+    display: block;
+    font-size: 0.875rem;
+    color: #ff758f;
+    text-transform: uppercase;
+}
+
+.day-display strong {
+    font-size: 2.5rem;
+    color: #590d22;
+    line-height: 1;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    color: #ff758f;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #fff0f3;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #ffb3c1;
+}
+
+.symptom-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.symptom-tags button {
+    padding: 8px 16px;
+    background: #fff0f3;
+    border: none;
+    border-radius: 50px;
+    color: #ff758f;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.symptom-tags button.active {
+    background: #ff4d6d;
+    color: white;
+    transform: scale(1.05);
+}
+
+.insights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.insights-list li {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #fff0f3;
+}
+
+.insights-list li:last-child {
+    border-bottom: none;
+}
+
+.insights-list p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #590d22;
+    line-height: 1.4;
+}
+
+.insights-list strong {
+    color: #ff4d6d;
+}

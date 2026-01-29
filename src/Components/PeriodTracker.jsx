@@ -1,111 +1,198 @@
 import React, { useState, useEffect } from "react";
-import "./Journal.css";
+import "./PeriodTracker.css";
 import Sidebar from "./sidebar";
-import { auth, db } from "../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../AuthContext";
 import ErrorBoundary from "../ErrorBoundary";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import { Calendar, AlertCircle, Sparkles, Activity } from "lucide-react";
+
+const COLORS = ["#ff4d6d", "#ff758f", "#ffb3c1", "#80ed99"];
+const PHASES = [
+  { name: "Menstrual", value: 5 },
+  { name: "Follicular", value: 9 },
+  { name: "Ovulation", value: 1 },
+  { name: "Luteal", value: 13 },
+];
 
 function PeriodTracker() {
   const [lastPeriodDate, setLastPeriodDate] = useState("");
-  const [cycleLength, setCycleLength] = useState(28); // Default cycle length is 28 days
-  const [predictedDate, setPredictedDate] = useState(null);
+  const [cycleLength, setCycleLength] = useState(28);
+  const [symptoms, setSymptoms] = useState([]);
+  const [dbInitialized, setDbInitialized] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      console.log("User ID:", user.uid); // Log the user ID
-      const fetchUserData = async () => {
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          console.log("Fetching document at path:", `users/${user.uid}`);
-          const userDoc = await getDoc(userDocRef);
+    if (!user) return;
+    const userRef = doc(db, "users", user.uid);
 
-          if (userDoc.exists()) {
-            console.log("Document data:", userDoc.data());
-            const data = userDoc.data();
-            setLastPeriodDate(data.lastPeriodDate);
-            setCycleLength(data.cycleLength);
-            if (data.lastPeriodDate && data.cycleLength) {
-              const lastDate = new Date(data.lastPeriodDate);
-              const nextDate = new Date(lastDate);
-              nextDate.setDate(lastDate.getDate() + parseInt(data.cycleLength));
-              setPredictedDate(nextDate.toLocaleDateString());
-            }
-          } else {
-            console.log("No document found for user ID:", user.uid);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      };
-      fetchUserData();
-    }
+    const unsub = onSnapshot(userRef, (snap) => {
+      if (snap.exists()) {
+        const data = snap.data().periodData || {};
+        setLastPeriodDate(data.lastPeriodDate || "");
+        setCycleLength(data.cycleLength || 28);
+        setSymptoms(data.symptoms || []);
+      }
+      setDbInitialized(true);
+    });
+
+    return () => unsub();
   }, [user]);
 
-  const saveUserData = async () => {
-    if (!user) {
-      alert("Please log in to save your data.");
-      return;
-    }
+  useEffect(() => {
+    if (!user || !dbInitialized) return;
+    const userRef = doc(db, "users", user.uid);
+    setDoc(userRef, {
+      periodData: { lastPeriodDate, cycleLength, symptoms }
+    }, { merge: true }).catch(() => { });
+  }, [lastPeriodDate, cycleLength, symptoms, user, dbInitialized]);
 
-    const userDocRef = doc(db, "users", user.uid);
-    await setDoc(userDocRef, {
-      lastPeriodDate,
-      cycleLength,
-    });
-    alert("Your data has been saved.");
+  const toggleSymptom = (s) => {
+    setSymptoms(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s]);
   };
 
-  const calculateNextPeriod = () => {
-    if (!lastPeriodDate || !cycleLength) {
-      alert("Please enter all details.");
-      return;
-    }
-
-    const lastDate = new Date(lastPeriodDate);
-    const nextDate = new Date(lastDate);
-    nextDate.setDate(lastDate.getDate() + parseInt(cycleLength));
-    setPredictedDate(nextDate.toLocaleDateString());
-    saveUserData();
+  const calculateDayInCycle = () => {
+    if (!lastPeriodDate) return 0;
+    const start = new Date(lastPeriodDate);
+    const today = new Date();
+    const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+    return (diff % cycleLength) + 1;
   };
+
+  const dayInCycle = calculateDayInCycle();
+  const nextPeriodDate = lastPeriodDate
+    ? new Date(new Date(lastPeriodDate).getTime() + cycleLength * 86400000).toLocaleDateString()
+    : "Not set";
+
+  const currentPhase = dayInCycle <= 5 ? "Menstrual" :
+    dayInCycle <= 14 ? "Follicular" :
+      dayInCycle <= 15 ? "Ovulation" : "Luteal";
+
+  const chartData = [
+    { name: "Menstrual", value: 5, color: "#ff4d6d" },
+    { name: "Follicular", value: 9, color: "#ffb3c1" },
+    { name: "Ovulation", value: 1, color: "#c9184a" },
+    { name: "Luteal", value: cycleLength - 15, color: "#590d22" },
+  ];
 
   return (
-    <div>
+    <div className="period-page">
       <Sidebar />
-      <div style={{ marginLeft: "60px", padding: "20px" }}>
-        <h1>Period Tracker</h1>
-        <div className="form">
-          <label>
-            Last Period Date:
-            <input
-              type="date"
-              value={lastPeriodDate}
-              onChange={(e) => setLastPeriodDate(e.target.value)}
-            />
-          </label>
-          <label>
-            Average Cycle Length (days):
-            <input
-              type="number"
-              value={cycleLength}
-              onChange={(e) => setCycleLength(e.target.value)}
-            />
-          </label>
-          <button onClick={calculateNextPeriod}>Predict Next Period</button>
-        </div>
-        {predictedDate && (
-          <div className="prediction">
-            <h2>Predicted Next Period Date:</h2>
-            <p>{predictedDate}</p>
+      <div className="period-content">
+        <header className="period-header">
+          <h1>Cycle Tracker</h1>
+          <div className="header-stats">
+            <div className="top-stat">
+              <span className="label">Next Period</span>
+              <span className="value">{nextPeriodDate}</span>
+            </div>
+            <div className="top-stat">
+              <span className="label">Cycle Day</span>
+              <span className="value">Day {dayInCycle || "--"}</span>
+            </div>
           </div>
-        )}
+        </header>
+
+        <div className="period-main-grid">
+          {/* Chart Section */}
+          <section className="period-card chart-card">
+            <h2>Current Phase: {currentPhase}</h2>
+            <div className="chart-container">
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={70}
+                    outerRadius={95}
+                    paddingAngle={2}
+                    dataKey="value"
+                    startAngle={90}
+                    endAngle={-270}
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={entry.color}
+                        stroke={currentPhase === entry.name ? "#fff" : "none"}
+                        strokeWidth={currentPhase === entry.name ? 3 : 0}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip cursor={{ stroke: '#ff4d6d', strokeWidth: 2 }} />
+                  <Legend verticalAlign="bottom" height={36} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="day-display">
+                <span>Day</span>
+                <strong>{dayInCycle || 1}</strong>
+              </div>
+            </div>
+          </section>
+
+          {/* Settings Section */}
+          <section className="period-card settings-card">
+            <h2>Update Info</h2>
+            <div className="input-group">
+              <label>Last Period Start</label>
+              <input
+                type="date"
+                value={lastPeriodDate}
+                onChange={e => setLastPeriodDate(e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+              <label>Average Cycle (Days)</label>
+              <input
+                type="number"
+                value={cycleLength}
+                onChange={e => setCycleLength(parseInt(e.target.value) || 28)}
+              />
+            </div>
+          </section>
+
+          {/* Symptoms Section */}
+          <section className="period-card symptoms-card">
+            <h2>Today's Symptoms</h2>
+            <div className="symptom-tags">
+              {["Cramps", "Bloating", "Headache", "Cravings", "Moody", "Energetic", "Tired", "Backache"].map(s => (
+                <button
+                  key={s}
+                  className={symptoms.includes(s) ? "active" : ""}
+                  onClick={() => toggleSymptom(s)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Insights Section */}
+          <section className="period-card insights-card">
+            <h2>Daily Insights</h2>
+            <ul className="insights-list">
+              <li>
+                <Sparkles size={18} color="#ff4d6d" />
+                <p>Fertility is <strong>{dayInCycle >= 10 && dayInCycle <= 16 ? "High" : "Low"}</strong> today.</p>
+              </li>
+              <li>
+                <Activity size={18} color="#ff4d6d" />
+                <p>Stay hydrated to reduce common <strong>{currentPhase}</strong> symptoms.</p>
+              </li>
+              <li>
+                <AlertCircle size={18} color="#ff4d6d" />
+                <p>Next period starts in <strong>{cycleLength - dayInCycle}</strong> days.</p>
+              </li>
+            </ul>
+          </section>
+        </div>
       </div>
     </div>
   );
 }
 
-// Wrap PeriodTracker in ErrorBoundary
 export default function PeriodTrackerWithBoundary() {
   return (
     <ErrorBoundary>

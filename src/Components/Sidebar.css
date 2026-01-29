@@ -1,110 +1,110 @@
-/* sidebar.css */
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
-  width: 60px;              /* collapsed */
+  width: 70px;
   height: 100vh;
-  background-color: #ffeaed;
-  color: white;
-  transition: width 0.3s ease;
+  background-color: #fff0f3;
+  color: #590d22;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  z-index: 100;
-}
-/*
- width: 28%;
-  background-color: #ffeaed;
-  padding: 30px 20px;
+  z-index: 1000;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  border-right: 1px solid #ddd;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-*/
+  border-right: 1px solid #ffccd5;
+}
+
 .sidebar:hover {
-  width: 285px;             /* expanded */
+  width: 260px;
 }
 
-.sidebar ul {
+.logo-container {
+  padding: 20px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+}
+
+.logo {
+  max-width: 40px;
+  transition: max-width 0.3s ease;
+}
+
+.sidebar:hover .logo {
+  max-width: 200px;
+}
+
+.menu-list {
   list-style: none;
-  padding: 20px;
-  margin: 1;
+  padding: 0;
+  margin: 0;
+  flex: 1;
 }
-
 
 .menu-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 6px;
+  padding: 14px 24px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  color: #ff758f;
+  position: relative;
 }
 
 .menu-item:hover {
-  background: #ff8899;
+  background: #fff8f9;
+  color: #ff4d6d;
 }
 
-.menu-item svg {
-  min-width: 22px;
-  min-height: 22px;
+.menu-item.active {
+  background: #ffeaed;
+  color: #ff4d6d;
+  font-weight: 700;
+}
+
+.menu-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #ff4d6d;
+}
+
+.icon-wrapper {
+  min-width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-text {
-  opacity: 0;
+  margin-left: 16px;
+  font-size: 1rem;
   white-space: nowrap;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
-
 
 .sidebar:hover .menu-text {
   opacity: 1;
 }
 
-
-.menu-item.active {
-  background: #ff8899;
-}
-
-
-.mainContent {
-  flex: 1;
-              
-  transition: margin-left 0.3s ease;
-}
-
-/* When sidebar expands, pushContent */
-.sidebar:hover ~ .mainContent {
-  margin-left: 285px;
-}
-
-
-.sidebar ul {
-  list-style: none;   /* removes bullet points */
-  padding: 0;
+/* Ensure content doesn't get covered by the collapsed sidebar */
+body {
   margin: 0;
 }
 
-.sidebar {
-  background: #ffeaed;   /* dark background */
-  color: black;          /* white text */
+/* For direct children of pages that aren't the sidebar */
+.main-content,
+.budget-content,
+.sleep-content,
+.custom-lists-content,
+.summary-content,
+.period-content {
+  margin-left: 70px !important;
+  transition: margin-left 0.3s ease;
 }
-
-.logo-container {
- padding: 10px;
-
-}
-
-.logo {
-  max-width: 250px; 
-
-}
-.sidebar:hover .logo{
-Content: url("./logo.png");
-}
-
-
-
-
-
