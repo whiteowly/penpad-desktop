@@ -46,8 +46,13 @@ h1 {
   color: #2d3748;
 }
 
-.summary-card p.positive { color: #38a169; }
-.summary-card p.negative { color: #e53e3e; }
+.summary-card p.positive {
+  color: #38a169;
+}
+
+.summary-card p.negative {
+  color: #e53e3e;
+}
 
 .budget-main-container {
   display: grid;
@@ -61,14 +66,16 @@ h1 {
   }
 }
 
-.transaction-form-section, .transaction-list-section {
+.transaction-form-section,
+.transaction-list-section {
   background: white;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.transaction-form-section h2, .transaction-list-section h2 {
+.transaction-form-section h2,
+.transaction-list-section h2 {
   font-size: 1.25rem;
   color: #4a5568;
   margin-bottom: 20px;
@@ -173,8 +180,13 @@ h1 {
   font-size: 1rem;
 }
 
-.transaction-item.income .transaction-amount { color: #38a169; }
-.transaction-item.expense .transaction-amount { color: #e53e3e; }
+.transaction-item.income .transaction-amount {
+  color: #38a169;
+}
+
+.transaction-item.expense .transaction-amount {
+  color: #e53e3e;
+}
 
 .delete-btn {
   background: none;

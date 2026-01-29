@@ -98,14 +98,22 @@ export default function Journal() {
                 onClick={() => openViewModal(entry)}
               >
                 <div className="card-header">
-                  <h3>{entry.title}</h3>
-                  <span className="entry-time">{entry.date.split(",")[1]}</span>
+                  <h3>{entry.title || "Untitled"}</h3>
+                  <span className="entry-time">
+                    {entry.date && typeof entry.date === "string" && entry.date.includes(",")
+                      ? entry.date.split(",")[1]
+                      : ""}
+                  </span>
                 </div>
-                <span className="entry-date">{entry.date.split(",")[0]}</span>
+                <span className="entry-date">
+                  {entry.date && typeof entry.date === "string"
+                    ? entry.date.split(",")[0]
+                    : "No Date"}
+                </span>
                 <p className="entry-preview">
-                  {entry.content.length > 50
+                  {entry.content && entry.content.length > 50
                     ? entry.content.substring(0, 50) + "..."
-                    : entry.content}
+                    : entry.content || "Empty content"}
                 </p>
               </div>
             ))

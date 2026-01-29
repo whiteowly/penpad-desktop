@@ -4,6 +4,7 @@ import Sidebar from "./sidebar";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { Trash2, CheckCircle2, Circle, Plus, Filter, Layout } from "lucide-react";
 
 export default function ToDoList() {
   const { user } = useAuth();
@@ -16,23 +17,18 @@ export default function ToDoList() {
     }
   });
   const [input, setInput] = useState("");
+  const [category, setCategory] = useState("Personal");
   const [dbInitialized, setDbInitialized] = useState(false);
 
-  // (localStorage is loaded synchronously into initial state)
-
-  // Sync with Firestore for authenticated users
   useEffect(() => {
     if (!user) return;
-
     const userRef = doc(db, "users", user.uid);
 
-    // One-time merge: if DB empty but local has tasks, push local tasks to DB
     (async () => {
       try {
         const snap = await getDoc(userRef);
         const dbTasks = snap.exists() ? snap.data().todos || [] : [];
         const local = JSON.parse(localStorage.getItem("penpad_todos") || "[]");
-        console.debug("ToDoList: getDoc fetched dbTasks.length=", dbTasks.length, "local.length=", local.length);
         if ((!dbTasks || dbTasks.length === 0) && local && local.length > 0) {
           await setDoc(userRef, { todos: local }, { merge: true });
         }
@@ -41,34 +37,18 @@ export default function ToDoList() {
       }
     })();
 
-    // realtime listener: update local tasks when DB changes
     let initial = true;
     const unsub = onSnapshot(userRef, (snap) => {
-      const local = JSON.parse(localStorage.getItem("penpad_todos") || "[]");
-
       if (!snap.exists()) {
-        // If DB doc missing on initial load but local has tasks, push local tasks to DB
-        if (initial && local && local.length > 0) {
-          setDoc(userRef, { todos: local }, { merge: true }).catch((err) => console.error(err));
+        const local = JSON.parse(localStorage.getItem("penpad_todos") || "[]");
+        if (initial && local.length > 0) {
+          setDoc(userRef, { todos: local }, { merge: true }).catch(() => { });
         }
         initial = false;
         setDbInitialized(true);
         return;
       }
-
       const dbTasks = snap.data().todos || [];
-
-      if (initial) {
-        // If DB has no tasks but we have local tasks, prefer merging local -> DB
-        if ((!dbTasks || dbTasks.length === 0) && local && local.length > 0) {
-          setDoc(userRef, { todos: local }, { merge: true }).catch((err) => console.error(err));
-          initial = false;
-          setDbInitialized(true);
-          return;
-        }
-      }
-
-      console.debug("ToDoList: onSnapshot dbTasks.length=", dbTasks.length);
       setTasks(dbTasks);
       localStorage.setItem("penpad_todos", JSON.stringify(dbTasks));
       initial = false;
@@ -78,18 +58,11 @@ export default function ToDoList() {
     return () => unsub();
   }, [user]);
 
-  // persist to localStorage and, if authenticated and DB initialized, to Firestore
   useEffect(() => {
     localStorage.setItem("penpad_todos", JSON.stringify(tasks));
-    if (!user) return;
-    if (!dbInitialized) {
-      console.debug("ToDoList: skipping Firestore write until DB initialized");
-      return;
-    }
+    if (!user || !dbInitialized) return;
     const userRef = doc(db, "users", user.uid);
-    // write current tasks to Firestore (overwrite todos field)
-    console.debug("ToDoList: writing tasks to Firestore, count=", tasks.length);
-    setDoc(userRef, { todos: tasks }, { merge: true }).catch(() => {});
+    setDoc(userRef, { todos: tasks }, { merge: true }).catch(() => { });
   }, [tasks, user, dbInitialized]);
 
   function addTask() {
@@ -97,7 +70,7 @@ export default function ToDoList() {
     if (!text) return;
     setTasks((t) => [
       ...t,
-      { id: Date.now(), text, completed: false },
+      { id: Date.now(), text, completed: false, category, date: new Date().toISOString() },
     ]);
     setInput("");
   }
@@ -110,48 +83,90 @@ export default function ToDoList() {
     setTasks((t) => t.filter((it) => it.id !== id));
   }
 
-  function onKeyDown(e) {
-    if (e.key === "Enter") addTask();
+  function clearCompleted() {
+    if (window.confirm("Delete all completed tasks?")) {
+      setTasks((t) => t.filter((it) => !it.completed));
+    }
   }
 
-  return (
-    <div>
-      <Sidebar />
-      <div className="todo-wrap" style={{ marginLeft: "60px", padding: "20px" }}>
-        <h1>To Do List</h1>
+  const completedCount = tasks.filter(t => t.completed).length;
+  const progress = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
 
-        <div className="todo-container">
-          <div className="todo-input-row">
+  return (
+    <div className="todo-page">
+      <Sidebar />
+      <div className="todo-content">
+        <header className="todo-header">
+          <h1>Productivity</h1>
+          <div className="stats-row">
+            <div className="stat-pill">
+              <CheckCircle2 size={16} />
+              <span>{completedCount}/{tasks.length} Resolved</span>
+            </div>
+            <button className="clear-btn" onClick={clearCompleted}>Clear Done</button>
+          </div>
+        </header>
+
+        <section className="progress-section">
+          <div className="progress-info">
+            <span>Overall Progress</span>
+            <span>{Math.round(progress)}%</span>
+          </div>
+          <div className="progress-bar-bg">
+            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+          </div>
+        </section>
+
+        <div className="todo-input-card">
+          <div className="input-group">
             <input
-              className="todo-input"
-              placeholder="Add a new task..."
+              placeholder="What needs to be done?"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={onKeyDown}
+              onKeyDown={(e) => e.key === "Enter" && addTask()}
             />
-            <button className="add-btn" onClick={addTask} aria-label="Add task">
-              Add
-            </button>
+            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option>Personal</option>
+              <option>Work</option>
+              <option>Shopping</option>
+              <option>Health</option>
+            </select>
           </div>
+          <button className="add-fab" onClick={addTask} aria-label="Add task">
+            <Plus size={24} />
+          </button>
+        </div>
 
-          <ul className="todo-list">
-            {tasks.length === 0 && <li className="empty">No tasks yet.</li>}
-            {tasks.map((task) => (
-              <li key={task.id} className={`todo-item ${task.completed ? "completed" : ""}`}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleComplete(task.id)}
-                  />
-                  <span className="todo-text">{task.text}</span>
-                </label>
-                <button className="delete-btn" onClick={() => deleteTask(task.id)} aria-label="Delete task">
-                  ×
-                </button>
-              </li>
-            ))}
-          </ul>
+        <div className="tasks-grid">
+          {tasks.length === 0 ? (
+            <div className="empty-state">
+              <Layout size={48} />
+              <p>Everything's clear! Relax or add a new goal.</p>
+            </div>
+          ) : (
+            <ul className="modern-todo-list">
+              {tasks.map((task) => (
+                <li key={task.id} className={`modern-todo-item ${task.completed ? "task-done" : ""}`}>
+                  <div className="task-main" onClick={() => toggleComplete(task.id)}>
+                    {task.completed ? (
+                      <CheckCircle2 className="check-icon done" size={22} />
+                    ) : (
+                      <Circle className="check-icon" size={22} />
+                    )}
+                    <div className="task-info">
+                      <span className="task-text">{task.text}</span>
+                      <span className={`cat-tag ${(task.category || 'Personal').toLowerCase()}`}>
+                        {task.category || 'Personal'}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="item-delete" onClick={() => deleteTask(task.id)}>
+                    <Trash2 size={18} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
