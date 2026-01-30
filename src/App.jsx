@@ -15,7 +15,7 @@ import Schedule from './Components/Schedule';
 import Summary from './Components/Summary';
 import SleepTracker from './Components/SleepTracker';
 import CreateYourList from './Components/CreateYourList';
-import Profile from './Components/Profile';
+import Profile from './Components/Profile.jsx';
 
 
 function App() {
