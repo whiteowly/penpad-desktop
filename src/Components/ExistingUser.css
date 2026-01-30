@@ -32,6 +32,7 @@
 }
 
 .auth-form input {
+    width: 100%;
     padding: 14px 18px;
     border-radius: 12px;
     border: 1.5px solid var(--input-border);
@@ -40,10 +41,38 @@
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s;
+    box-sizing: border-box; /* Ensures the icon doesn't push the input out of alignment */
 }
 
 .auth-form input:focus {
     border-color: var(--accent-color);
+}
+
+/* Eye Icon Positioning Logic */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 50px; /* Space for the icon */
+}
+
+.icon-inside-input {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--secondary-text);
+    font-size: 1.2rem;
+    z-index: 5;
+}
+
+.icon-inside-input:hover {
+    color: var(--accent-color);
 }
 
 .auth-form button {
@@ -79,22 +108,6 @@
 }
 
 @media (max-width: 768px) {
-    .auth-container {
-        padding: 16px;
-    }
-
-    .logo-text {
-        font-size: 3rem;
-        margin-bottom: 20px;
-    }
-
-    .auth-container h2 {
-        font-size: 1.5rem;
-    }
-
-    .auth-form input,
-    .auth-form button {
-        padding: 12px;
-        font-size: 0.95rem;
-    }
+    .logo-text { font-size: 3rem; }
+    .auth-form input, .auth-form button { padding: 12px; }
 }

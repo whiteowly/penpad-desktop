@@ -153,16 +153,7 @@ export default function CreateYourList() {
                 <button className="delete-list-btn" onClick={() => deleteList(list.id)}>×</button>
               </div>
 
-              <div className="item-input-row">
-                <input
-                  type="text"
-                  placeholder="Add item..."
-                  value={list.newItemText || ""}
-                  onChange={(e) => updateNewItemText(list.id, e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && addItem(list.id, list.newItemText)}
-                />
-                <button onClick={() => addItem(list.id, list.newItemText)}>+</button>
-              </div>
+             
 
               <ul className="checklist">
                 {list.items.map((item) => (
@@ -180,6 +171,16 @@ export default function CreateYourList() {
                 ))}
                 {list.items.length === 0 && <li className="empty-items">No items yet.</li>}
               </ul>
+               <div className="item-input-row">
+                <input
+                  type="text"
+                  placeholder="Add item..."
+                  value={list.newItemText || ""}
+                  onChange={(e) => updateNewItemText(list.id, e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && addItem(list.id, list.newItemText)}
+                />
+                <button onClick={() => addItem(list.id, list.newItemText)}>Add</button>
+              </div>
             </div>
           ))}
         </div>
