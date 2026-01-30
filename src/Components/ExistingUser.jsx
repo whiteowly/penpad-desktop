@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
-// import './ExistingUser.css'; // Shared styles
+import './ExistingUser.css'; // Shared styles
 
 
 export default function ExistingUser() {
@@ -23,7 +23,7 @@ export default function ExistingUser() {
 
   return (
     <div className="auth-container">
-      <img src='./logo.png' alt="Logo" className="auth-logo" />
+      <h1 className="logo-text">penpad</h1>
       <h2>Welcome Back!</h2>
       <form onSubmit={handleLogin} className="auth-form">
         <input name="email" type="email" placeholder="Email" required />

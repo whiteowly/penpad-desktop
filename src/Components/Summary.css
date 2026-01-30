@@ -1,14 +1,13 @@
 .summary-page {
     display: flex;
     min-height: 100vh;
-    background-color: #f7fafc;
+    background-color: var(--bg-color);
 }
 
 .summary-content {
-    margin-left: 60px;
     padding: 32px;
     flex: 1;
-    max-width: 1200px;
+    width: 100%;
 }
 
 .summary-header {
@@ -20,29 +19,43 @@
 
 .summary-header h1 {
     font-size: 2.25rem;
-    color: #2d3748;
+    color: var(--text-color);
     margin: 0;
 }
 
 .summary-date-picker {
     padding: 10px 16px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 1rem;
-    color: #4a5568;
+    color: var(--secondary-text);
     outline: none;
-    background: white;
+    background: var(--card-bg);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .summary-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 24px;
 }
 
+@media (max-width: 768px) {
+    .summary-content {
+        padding: 16px;
+    }
+
+    .summary-header h1 {
+        display: none;
+    }
+
+    .summary-header {
+        margin-bottom: 24px;
+    }
+}
+
 .summary-section {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -55,8 +68,8 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
-    color: #4a5568;
-    border-bottom: 1px solid #f7fafc;
+    color: var(--secondary-text);
+    border-bottom: 1px solid var(--sidebar-border);
     padding-bottom: 12px;
 }
 
@@ -72,7 +85,7 @@
 }
 
 .summary-item {
-    background: #f8fafc;
+    background: var(--bg-color);
     padding: 16px;
     border-radius: 12px;
     margin-bottom: 12px;
@@ -81,15 +94,16 @@
 .journal-item h3 {
     font-size: 1rem;
     margin: 0 0 8px 0;
-    color: #2d3748;
+    color: var(--text-color);
 }
 
 .journal-item p {
     font-size: 0.9rem;
-    color: #4a5568;
+    color: var(--secondary-text);
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -97,7 +111,7 @@
 .schedule-item p {
     margin: 0;
     font-weight: 500;
-    color: #2d3748;
+    color: var(--text-color);
 }
 
 .fin-summary {
@@ -105,18 +119,18 @@
     justify-content: space-around;
     margin-bottom: 16px;
     padding: 12px;
-    background: #f1f5f9;
+    background: var(--input-bg);
     border-radius: 10px;
     font-weight: 700;
     font-size: 1.125rem;
 }
 
 .fin-summary .inc {
-    color: #38a169;
+    color: var(--text-color);
 }
 
 .fin-summary .exp {
-    color: #e53e3e;
+    color: var(--secondary-text);
 }
 
 .budget-item {
@@ -127,11 +141,11 @@
 }
 
 .budget-item.income {
-    border-left: 4px solid #38a169;
+    border-left: 4px solid var(--text-color);
 }
 
 .budget-item.expense {
-    border-left: 4px solid #e53e3e;
+    border-left: 4px solid var(--secondary-text);
 }
 
 .budget-item .amt {
@@ -148,7 +162,7 @@
 .sleep-main .duration {
     font-size: 1.75rem;
     font-weight: 800;
-    color: #2d3748;
+    color: var(--text-color);
 }
 
 .sleep-main .mood {
@@ -157,13 +171,13 @@
 
 .sleep-summary .times {
     font-size: 0.875rem;
-    color: #718096;
+    color: var(--secondary-text);
     margin: 0;
 }
 
 .empty {
     text-align: center;
-    color: #a0aec0;
+    color: var(--input-border);
     padding: 32px 0;
     font-size: 0.95rem;
     font-style: italic;
@@ -173,5 +187,5 @@
     text-align: center;
     padding: 100px;
     font-size: 1.25rem;
-    color: #718096;
+    color: var(--secondary-text);
 }

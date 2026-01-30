@@ -1,8 +1,10 @@
 .profile-container {
     padding: 40px;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 .profile-header h1 {
@@ -18,6 +20,8 @@
     padding: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--sidebar-border);
+    width: 100%;
+    max-width: 600px;
 }
 
 .avatar-section {
@@ -29,17 +33,16 @@
 }
 
 .profile-avatar {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    background-color: var(--input-bg);
     border-radius: 50%;
-    background: var(--sidebar-bg);
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin: 0 auto 15px;
-    border: 3px solid var(--accent-color);
+    justify-content: center;
+    margin-bottom: 16px;
+    color: var(--secondary-text);
     overflow: hidden;
-    color: var(--accent-color);
 }
 
 .profile-avatar img {
@@ -48,9 +51,17 @@
     object-fit: cover;
 }
 
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: var(--text-color);
+}
+
 .profile-email {
     color: var(--secondary-text);
-    font-size: 1rem;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
 .profile-form {
@@ -102,7 +113,7 @@
     border: none;
     border-radius: 12px;
     background: var(--accent-color);
-    color: white;
+    color: var(--bg-color);
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
@@ -119,7 +130,7 @@
 }
 
 .success-message {
-    color: #2dc653;
+    color: var(--text-color);
     font-size: 0.9rem;
     margin-top: 10px;
     text-align: center;
@@ -173,7 +184,7 @@
 .toggle-knob {
     width: 18px;
     height: 18px;
-    background: white;
+    background: var(--bg-color);
     border-radius: 50%;
     position: absolute;
     top: 3px;

@@ -9,14 +9,14 @@ export default function SplashScreen() {
     console.log('SplashScreen mounted');
     const timer = setTimeout(() => {
       console.log('Navigating to /login');
-      navigate('/login');
+      navigate('/new-user');
     }, 3000);
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
     <div className="splash-container">
-      <img src="logo.png" alt="PenPad Logo" className="logo" />
+      <h1 className="logo-text">penpad</h1>
       <div className="loader"></div>
     </div>
   );

@@ -4,8 +4,8 @@
 }
 
 .sidebar {
-  width: 70px;
-  min-width: 70px;
+  width: 260px;
+  min-width: 260px;
   height: 100vh;
   background-color: var(--sidebar-bg);
   color: var(--text-color);
@@ -19,11 +19,6 @@
   left: 0;
 }
 
-.sidebar:hover {
-  width: 260px;
-  min-width: 260px;
-}
-
 .logo-container {
   padding: 20px 15px;
   display: flex;
@@ -32,13 +27,17 @@
   min-height: 80px;
 }
 
-.logo {
-  max-width: 40px;
-  transition: max-width 0.3s ease;
+.logo-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.sidebar:hover .logo {
-  max-width: 200px;
+.logo-text:hover {
+  color: var(--text-color);
 }
 
 .menu-list {
@@ -90,12 +89,8 @@
   margin-left: 16px;
   font-size: 1rem;
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.sidebar:hover .menu-text {
   opacity: 1;
+  transition: opacity 0.2s ease;
 }
 
 /* Profile Section in Sidebar */
@@ -142,13 +137,9 @@
   margin-left: 12px;
   display: flex;
   flex-direction: column;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.2s ease;
   white-space: nowrap;
-}
-
-.sidebar:hover .profile-info {
-  opacity: 1;
 }
 
 .profile-name {
@@ -157,9 +148,99 @@
   color: var(--text-color);
 }
 
-.profile-subtext {
-  font-size: 0.75rem;
-  color: var(--secondary-text);
+/* Mobile Toggle */
+.mobile-toggle-btn {
+  display: none;
+}
+
+.mobile-overlay {
+  display: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .mobile-toggle-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1200;
+    background: var(--card-bg);
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+  }
+
+  .mobile-toggle-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mobile-toggle-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(2px);
+  }
+
+  /* Default state: hidden (translated left) */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Reset previous mobile styles that were icon-only */
+  .logo-text,
+  .menu-text,
+  .profile-info {
+    display: flex;
+  }
+
+  .logo-container {
+    background-image: none !important;
+  }
+
+  .logo-container:before {
+    content: none !important;
+  }
+
+  .sidebar-profile,
+  .menu-item {
+    justify-content: flex-start;
+    padding: 15px 24px;
+  }
+
+  .icon-wrapper {
+    margin-right: 12px;
+  }
 }
 
 /* Ensure content doesn't get covered by the collapsed sidebar */

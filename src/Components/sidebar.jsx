@@ -19,8 +19,9 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  if (location.pathname === "/dashboard") return null;
+  // if (location.pathname === "/dashboard") return null;
 
   const menuItems = [
     { name: "Journal", icon: <Notebook size={22} />, path: "/journal" },
@@ -28,55 +29,74 @@ const Sidebar = () => {
     { name: "To-Do List", icon: <ListTodo size={22} />, path: "/to-do-list" },
     { name: "Budget Tracker", icon: <DollarSign size={22} />, path: "/budget-tracker" },
     { name: "Schedule", icon: <Clock size={22} />, path: "/schedule" },
-    { name: "Summary", icon: <LayoutDashboard size={22} />, path: "/summary" },
     { name: "Sleep Tracker", icon: <Moon size={22} />, path: "/sleep-tracker" },
     { name: "Create Your List", icon: <Plus size={22} />, path: "/create-your-list" },
+    { name: "Summary", icon: <LayoutDashboard size={22} />, path: "/summary" },
   ];
 
   return (
-    <div
-      className="sidebar"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="logo-container">
-        <img
-          src={isHovered ? "/logo.png" : "/logoHover.png"}
-          alt="Penpad Logo"
-          className="logo"
-          onClick={() => navigate("/dashboard")}
-        />
-      </div>
-      <ul className="menu-list">
-        {menuItems.map((item, index) => (
-          <li
-            key={index}
-            className={`menu-item ${location.pathname === item.path ? "active" : ""}`}
-            onClick={() => navigate(item.path)}
-          >
-            <div className="icon-wrapper">{item.icon}</div>
-            <span className="menu-text">{item.name}</span>
-          </li>
-        ))}
-      </ul>
+    <>
+      <button
+        className={`mobile-toggle-btn ${isMobileOpen ? 'hidden' : ''}`}
+        onClick={() => setIsMobileOpen(true)}
+      >
+        P
+      </button>
+
+      {isMobileOpen && (
+        <div className="mobile-overlay" onClick={() => setIsMobileOpen(false)} />
+      )}
 
       <div
-        className={`sidebar-profile ${location.pathname === "/profile" ? "active" : ""}`}
-        onClick={() => navigate("/profile")}
+        className={`sidebar ${isMobileOpen ? 'mobile-open' : ''}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="profile-image-wrapper">
-          {user?.photoURL ? (
-            <img src={user.photoURL} alt="User" />
-          ) : (
-            <User size={22} />
-          )}
+        <div className="logo-container">
+          <h1
+            className="logo-text"
+            onClick={() => navigate("/dashboard")}
+          >
+            penpad
+          </h1>
         </div>
-        <div className="profile-info">
-          <span className="profile-name">{user?.displayName || "User"}</span>
-          <span className="profile-subtext">View Profile</span>
+        <ul className="menu-list">
+          {menuItems.map((item, index) => (
+            <li
+              key={index}
+              className={`menu-item ${location.pathname === item.path ? "active" : ""}`}
+              onClick={() => {
+                navigate(item.path);
+                setIsMobileOpen(false);
+              }}
+            >
+              <div className="icon-wrapper">{item.icon}</div>
+              <span className="menu-text">{item.name}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div
+          className={`sidebar-profile ${location.pathname === "/profile" ? "active" : ""}`}
+          onClick={() => {
+            navigate("/profile");
+            setIsMobileOpen(false);
+          }}
+        >
+          <div className="profile-image-wrapper">
+            {user?.photoURL ? (
+              <img src={user.photoURL} alt="User" />
+            ) : (
+              <User size={22} />
+            )}
+          </div>
+          <div className="profile-info">
+            <span className="profile-name">{user?.displayName || "User"}</span>
+            <span className="profile-subtext">View Profile</span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

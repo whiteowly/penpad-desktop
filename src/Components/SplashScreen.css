@@ -4,18 +4,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff; /* Soft pink */
+  background-color: var(--bg-color);
 }
 
-.logo {
-  width: 300px;
-  margin-bottom: 150px;
+.logo-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 5rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
 }
 
 .loader {
   width: 24px;
   height: 24px;
-  border: 4px solid #df8ebb;
+  border: 4px solid var(--accent-color);
   border-top: 4px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -24,5 +26,12 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: 3rem;
+    margin-bottom: 50px;
   }
 }

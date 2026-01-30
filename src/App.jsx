@@ -25,7 +25,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<SplashScreen />} />
-            <Route path="/login" element={<Login />} />
+
             <Route path="/new-user" element={<NewUser />} />
             <Route path="/existing-user" element={<ExistingUser />} />
 

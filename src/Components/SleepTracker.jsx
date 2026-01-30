@@ -113,7 +113,7 @@ export default function SleepTracker() {
     <div className="sleep-page">
 
       <div className="sleep-content">
-        <h1>Sleep Tracker</h1>
+
 
         <div className="sleep-dashboard">
           <div className="stat-card">

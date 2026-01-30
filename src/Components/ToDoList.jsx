@@ -17,6 +17,7 @@ export default function ToDoList() {
   });
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("Personal");
+  const [showModal, setShowModal] = useState(false);
   const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
@@ -72,6 +73,7 @@ export default function ToDoList() {
       { id: Date.now(), text, completed: false, category, date: new Date().toISOString() },
     ]);
     setInput("");
+    setShowModal(false);
   }
 
   function toggleComplete(id) {
@@ -91,12 +93,24 @@ export default function ToDoList() {
   const completedCount = tasks.filter(t => t.completed).length;
   const progress = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
 
+  // Group tasks by category
+  const categories = ["Personal", "Work", "Class", "Other"];
+  const groupedTasks = categories.reduce((acc, cat) => {
+    acc[cat] = tasks.filter(t => (t.category || "Personal") === cat);
+    return acc;
+  }, {});
+
+  // Handle unknown categories
+  const knownCats = new Set(categories);
+  const others = tasks.filter(t => !knownCats.has(t.category || "Personal"));
+  if (others.length > 0) groupedTasks["Others"] = others;
+
   return (
     <div className="todo-page">
 
       <div className="todo-content">
         <header className="todo-header">
-          <h1>Productivity</h1>
+
           <div className="stats-row">
             <div className="stat-pill">
               <CheckCircle2 size={16} />
@@ -116,57 +130,77 @@ export default function ToDoList() {
           </div>
         </section>
 
-        <div className="todo-input-card">
-          <div className="input-group">
-            <input
-              placeholder="What needs to be done?"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addTask()}
-            />
-            <select value={category} onChange={(e) => setCategory(e.target.value)}>
-              <option>Personal</option>
-              <option>Work</option>
-              <option>Shopping</option>
-              <option>Health</option>
-            </select>
-          </div>
-          <button className="add-fab" onClick={addTask} aria-label="Add task">
-            <Plus size={24} />
-          </button>
-        </div>
-
-        <div className="tasks-grid">
-          {tasks.length === 0 ? (
+        <div className="categories-grid">
+          {Object.entries(groupedTasks).map(([cat, catTasks]) => (
+            catTasks.length > 0 && (
+              <div key={cat} className="category-group">
+                <h3 className="category-header">{cat}</h3>
+                <ul className="modern-todo-list">
+                  {catTasks.map((task) => (
+                    <li key={task.id} className={`modern-todo-item ${task.completed ? "task-done" : ""}`}>
+                      <div className="task-main" onClick={() => toggleComplete(task.id)}>
+                        {task.completed ? (
+                          <CheckCircle2 className="check-icon done" size={22} />
+                        ) : (
+                          <Circle className="check-icon" size={22} />
+                        )}
+                        <span className="task-text">{task.text}</span>
+                      </div>
+                      <button className="item-delete" onClick={() => deleteTask(task.id)}>
+                        <Trash2 size={18} />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          ))}
+          {tasks.length === 0 && (
             <div className="empty-state">
               <Layout size={48} />
               <p>Everything's clear! Relax or add a new goal.</p>
             </div>
-          ) : (
-            <ul className="modern-todo-list">
-              {tasks.map((task) => (
-                <li key={task.id} className={`modern-todo-item ${task.completed ? "task-done" : ""}`}>
-                  <div className="task-main" onClick={() => toggleComplete(task.id)}>
-                    {task.completed ? (
-                      <CheckCircle2 className="check-icon done" size={22} />
-                    ) : (
-                      <Circle className="check-icon" size={22} />
-                    )}
-                    <div className="task-info">
-                      <span className="task-text">{task.text}</span>
-                      <span className={`cat-tag ${(task.category || 'Personal').toLowerCase()}`}>
-                        {task.category || 'Personal'}
-                      </span>
-                    </div>
-                  </div>
-                  <button className="item-delete" onClick={() => deleteTask(task.id)}>
-                    <Trash2 size={18} />
-                  </button>
-                </li>
-              ))}
-            </ul>
           )}
         </div>
+
+        {/* FAB */}
+        <button className="fab" onClick={() => setShowModal(true)}>
+          <Plus size={32} />
+        </button>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="todo-overlay" onClick={() => setShowModal(false)}>
+            <div className="todo-modal" onClick={e => e.stopPropagation()}>
+              <h2>Add New Task</h2>
+              <input
+                autoFocus
+                placeholder="What needs to be done?"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && addTask()}
+              />
+
+              <div className="category-chips">
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    className={`chip ${category === cat ? 'active' : ''}`}
+                    onClick={() => setCategory(cat)}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="modal-actions">
+                <button className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+                <button className="save-btn" onClick={addTask}>Add Task</button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

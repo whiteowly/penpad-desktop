@@ -1,14 +1,13 @@
 .journal-page {
   display: flex;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: var(--bg-color);
 }
 
 .journal-content {
-  margin-left: 70px;
   padding: 32px;
   flex: 1;
-  max-width: 1200px;
+  width: 100%;
   position: relative;
 }
 
@@ -18,18 +17,18 @@
 
 .journal-header h1 {
   font-size: 2.5rem;
-  color: #1e293b;
+  color: var(--text-color);
   margin: 0;
 }
 
 .journal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
 }
 
 .entry-card {
-  background: white;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -37,7 +36,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
-  border: 1px solid #f1f5f9;
+  border: 1px solid var(--sidebar-border);
 }
 
 .entry-card:hover {
@@ -54,7 +53,7 @@
 
 .card-header h3 {
   font-size: 1.125rem;
-  color: #0f172a;
+  color: var(--text-color);
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,23 +63,24 @@
 
 .entry-time {
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--secondary-text);
   font-weight: 500;
 }
 
 .entry-date {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: var(--secondary-text);
   margin-bottom: 12px;
 }
 
 .entry-preview {
   font-size: 0.95rem;
-  color: #475569;
+  color: var(--text-color);
   line-height: 1.5;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -93,8 +93,8 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: #2563eb;
-  color: white;
+  background: var(--accent-color);
+  color: var(--bg-color);
   border: none;
   display: flex;
   justify-content: center;
@@ -107,7 +107,7 @@
 
 .fab:hover {
   transform: scale(1.1);
-  background: #1d4ed8;
+  background: var(--text-color);
 }
 
 /* Modal Styling */
@@ -126,7 +126,7 @@
 }
 
 .journal-modal {
-  background: white;
+  background: var(--card-bg);
   width: 90%;
   max-width: 600px;
   border-radius: 20px;
@@ -144,14 +144,14 @@
 
 .modal-header h2 {
   font-size: 1.5rem;
-  color: #0f172a;
+  color: var(--text-color);
   margin: 0;
 }
 
 .close-btn {
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--input-border);
   cursor: pointer;
   padding: 4px;
   border-radius: 8px;
@@ -159,8 +159,8 @@
 }
 
 .close-btn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--hover-bg);
+  color: var(--text-color);
 }
 
 .modal-body {
@@ -172,15 +172,16 @@
 .modal-body input {
   font-size: 1.25rem;
   border: none;
-  border-bottom: 2px solid #f1f5f9;
+  border-bottom: 2px solid var(--input-border);
   padding: 8px 0;
   outline: none;
   font-weight: 600;
-  color: #0f172a;
+  background: transparent;
+  color: var(--text-color);
 }
 
 .modal-body input::placeholder {
-  color: #cbd5e1;
+  color: var(--input-border);
 }
 
 .modal-body textarea {
@@ -188,14 +189,15 @@
   border: none;
   font-size: 1.125rem;
   line-height: 1.6;
-  color: #334155;
+  color: var(--text-color);
   resize: none;
   outline: none;
+  background: transparent;
 }
 
 .save-btn {
-  background: #2563eb;
-  color: white;
+  background: var(--accent-color);
+  color: var(--bg-color);
   border: none;
   padding: 14px;
   border-radius: 12px;
@@ -206,7 +208,7 @@
 }
 
 .save-btn:hover {
-  background: #1d4ed8;
+  background: var(--text-color);
 }
 
 /* View Modal Specifics */
@@ -216,14 +218,14 @@
 }
 
 .full-date {
-  color: #94a3b8;
+  color: var(--secondary-text);
   font-size: 0.875rem;
 }
 
 .full-content {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #1e293b;
+  color: var(--text-color);
   white-space: pre-wrap;
   margin: 0;
 }
@@ -232,6 +234,6 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 100px 0;
-  color: #94a3b8;
+  color: var(--secondary-text);
   font-size: 1.125rem;
 }

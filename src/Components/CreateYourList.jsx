@@ -3,6 +3,7 @@ import "./CreateYourList.css";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { Plus } from "lucide-react";
 
 export default function CreateYourList() {
   const { user } = useAuth();
@@ -17,6 +18,7 @@ export default function CreateYourList() {
 
   const [newListTitle, setNewListTitle] = useState("");
   const [dbInitialized, setDbInitialized] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   // Sync with Firestore
   useEffect(() => {
@@ -68,7 +70,7 @@ export default function CreateYourList() {
   }, [lists, user, dbInitialized]);
 
   const addList = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!newListTitle.trim()) return;
     const newList = {
       id: Date.now(),
@@ -78,6 +80,7 @@ export default function CreateYourList() {
     };
     setLists([...lists, newList]);
     setNewListTitle("");
+    setShowModal(false);
   };
 
   const deleteList = (id) => {
@@ -138,22 +141,11 @@ export default function CreateYourList() {
 
   return (
     <div className="custom-lists-page">
-
       <div className="custom-lists-content">
-        <h1>Custom Lists</h1>
 
-        <form onSubmit={addList} className="new-list-form">
-          <input
-            type="text"
-            placeholder="Create a new list (e.g. Shopping List)..."
-            value={newListTitle}
-            onChange={(e) => setNewListTitle(e.target.value)}
-          />
-          <button type="submit">Create List</button>
-        </form>
 
         <div className="lists-grid">
-          {lists.length === 0 && <p className="empty-msg">No lists created yet. Create one above!</p>}
+          {lists.length === 0 && <p className="empty-msg">No lists created yet. Create one below!</p>}
           {lists.map((list) => (
             <div key={list.id} className="list-card">
               <div className="list-card-header">
@@ -191,6 +183,33 @@ export default function CreateYourList() {
             </div>
           ))}
         </div>
+
+        {/* FAB */}
+        <button className="fab" onClick={() => setShowModal(true)}>
+          <Plus size={32} />
+        </button>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="list-overlay" onClick={() => setShowModal(false)}>
+            <div className="list-modal" onClick={e => e.stopPropagation()}>
+              <h2>Create New List</h2>
+              <input
+                autoFocus
+                type="text"
+                placeholder="List Title (e.g. Shopping)..."
+                value={newListTitle}
+                onChange={(e) => setNewListTitle(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && addList()}
+              />
+              <div className="modal-actions">
+                <button className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+                <button className="save-btn" onClick={addList}>Create</button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

@@ -1,65 +1,126 @@
 .custom-lists-page {
     display: flex;
     min-height: 100vh;
-    background-color: #f7fafc;
+    background-color: var(--bg-color);
 }
 
 .custom-lists-content {
-    margin-left: 60px;
     padding: 24px;
     flex: 1;
-    max-width: 1200px;
+    width: 100%;
 }
 
 h1 {
     font-size: 2rem;
-    color: #2d3748;
+    color: var(--text-color);
     margin-bottom: 32px;
 }
 
-.new-list-form {
+/* FAB */
+.fab {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(100, 100, 100, 0.3);
+    transition: transform 0.2s, background 0.2s;
+    z-index: 100;
+}
+
+.fab:hover {
+    transform: scale(1.1);
+    background: var(--text-color);
+}
+
+/* Modal */
+.list-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.list-modal {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 40px;
-    background: white;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    gap: 24px;
 }
 
-.new-list-form input {
-    flex: 1;
-    padding: 12px 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
+.list-modal h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.list-modal input {
+    font-size: 1.25rem;
+    border: none;
+    border-bottom: 2px solid var(--input-border);
+    padding: 8px 0;
     outline: none;
+    background: transparent;
+    color: var(--text-color);
 }
 
-.new-list-form button {
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.cancel-btn {
     padding: 12px 24px;
-    background: #3182ce;
-    color: white;
+    background: transparent;
+    border: none;
+    color: var(--secondary-text);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.save-btn {
+    padding: 12px 24px;
+    background: var(--accent-color);
+    color: var(--bg-color);
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
-.new-list-form button:hover {
-    background: #2b6cb0;
+.save-btn:hover {
+    background: var(--text-color);
 }
 
 .lists-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 24px;
 }
 
 .list-card {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -77,20 +138,20 @@ h1 {
 
 .list-card-header h2 {
     font-size: 1.25rem;
-    color: #2d3748;
+    color: var(--text-color);
     margin: 0;
 }
 
 .delete-list-btn {
     background: none;
     border: none;
-    color: #cbd5e0;
+    color: var(--input-border);
     font-size: 1.5rem;
     cursor: pointer;
 }
 
 .delete-list-btn:hover {
-    color: #e53e3e;
+    color: var(--text-color);
 }
 
 .item-input-row {
@@ -102,17 +163,19 @@ h1 {
 
 .item-input-row input {
     padding: 10px 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 0.95rem;
     outline: none;
+    background: transparent;
+    color: var(--text-color);
 }
 
 .item-input-row button {
     width: 100%;
     height: 40px;
-    background: #4299e1;
-    color: white;
+    background: var(--accent-color);
+    color: var(--bg-color);
     border: none;
     border-radius: 8px;
     font-size: 0.95rem;
@@ -122,7 +185,7 @@ h1 {
 }
 
 .item-input-row button:hover {
-    background: #3182ce;
+    background: var(--text-color);
 }
 
 .checklist {
@@ -136,7 +199,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #f7fafc;
+    border-bottom: 1px solid var(--sidebar-border);
 }
 
 .checklist li:last-child {
@@ -153,36 +216,36 @@ h1 {
 
 .checklist li.completed span {
     text-decoration: line-through;
-    color: #a0aec0;
+    color: var(--secondary-text);
 }
 
 .remove-item-btn {
     background: none;
     border: none;
-    color: #edf2f7;
+    color: var(--input-border);
     font-size: 1.25rem;
     cursor: pointer;
     transition: color 0.2s;
 }
 
 .list-card:hover .remove-item-btn {
-    color: #cbd5e0;
+    color: var(--input-border);
 }
 
 .remove-item-btn:hover {
-    color: #e53e3e !important;
+    color: var(--text-color) !important;
 }
 
 .empty-msg {
     grid-column: 1 / -1;
     text-align: center;
-    color: #a0aec0;
+    color: var(--secondary-text);
     padding: 40px;
 }
 
 .empty-items {
     text-align: center;
-    color: #cbd5e0;
+    color: var(--secondary-text);
     font-size: 0.875rem;
     padding: 12px 0;
 }

@@ -9,9 +9,11 @@
     padding: 20px;
 }
 
-.logo {
-    max-width: 150px;
-    margin-bottom: 30px;
+.logo-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
 }
 
 .auth-container h2 {
@@ -49,7 +51,7 @@
     border: none;
     border-radius: 12px;
     background: var(--accent-color);
-    color: white;
+    color: var(--bg-color);
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
@@ -58,4 +60,25 @@
 
 .auth-container button:hover {
     opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 16px;
+    }
+
+    .logo-text {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .auth-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-container input,
+    .auth-container button {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
 }

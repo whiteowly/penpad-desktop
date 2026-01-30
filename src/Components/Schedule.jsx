@@ -153,7 +153,7 @@ export default function Schedule() {
     <div className="schedule-page">
 
       <div className="schedule-content">
-        <h1>Schedule</h1>
+        {/* <h1>Schedule</h1> */}
 
         <div className="calendar-container">
           <div className="calendar-header">

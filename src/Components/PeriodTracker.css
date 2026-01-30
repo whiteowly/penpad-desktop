@@ -1,14 +1,27 @@
 .period-page {
     display: flex;
     min-height: 100vh;
-    background-color: #fff0f3;
+    background-color: var(--bg-color);
 }
 
 .period-content {
-    margin-left: 60px;
     padding: 32px;
     flex: 1;
-    max-width: 1200px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .period-content {
+        padding: 16px;
+    }
+
+    .period-header h1 {
+        display: none;
+    }
+
+    .period-header {
+        margin-bottom: 24px;
+    }
 }
 
 .period-header {
@@ -20,7 +33,7 @@
 
 .period-header h1 {
     font-size: 2.5rem;
-    color: #590d22;
+    color: var(--text-color);
     margin: 0;
 }
 
@@ -30,19 +43,19 @@
 }
 
 .top-stat {
-    background: white;
+    background: var(--card-bg);
     padding: 12px 24px;
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 3px solid #ff4d6d;
+    border-bottom: 3px solid var(--accent-color);
 }
 
 .top-stat .label {
     font-size: 0.75rem;
-    color: #ff758f;
+    color: var(--secondary-text);
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -51,137 +64,181 @@
 .top-stat .value {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #590d22;
+    color: var(--text-color);
 }
 
 .period-main-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
-}
-
-.period-card {
-    background: white;
-    padding: 24px;
-    border-radius: 20px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-}
-
-.period-card h2 {
-    font-size: 1.125rem;
-    color: #590d22;
-    margin-bottom: 20px;
-    font-weight: 700;
+    /* Default mobile/tablet behavior (auto-fit) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .chart-card {
-    grid-row: span 2;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    grid-area: chart;
 }
 
-.chart-container {
-    flex: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.settings-card {
+    grid-area: settings;
 }
 
-.day-display {
-    position: absolute;
-    text-align: center;
-    pointer-events: none;
+.insights-card {
+    grid-area: insights;
 }
 
-.day-display span {
-    display: block;
-    font-size: 0.875rem;
-    color: #ff758f;
-    text-transform: uppercase;
+.symptoms-card {
+    grid-area: symptoms;
 }
 
-.day-display strong {
-    font-size: 2.5rem;
-    color: #590d22;
-    line-height: 1;
-}
+/* Desktop: 3-Column Layout */
+@media (min-width: 1200px) {
+    .period-main-grid {
+        grid-template-columns: 1.2fr 1fr 1fr;
+        grid-template-areas:
+            "chart settings symptoms"
+            "chart insights symptoms";
+        /* Symptoms spans vertically if content allows, or replace 2nd 'symptoms' with '.' */
+    }
 
-.input-group {
-    margin-bottom: 16px;
-}
+    /* Ensure height consistency */
+    .period-card {
+        background: var(--card-bg);
+        padding: 24px;
+        border-radius: 20px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
 
-.input-group label {
-    display: block;
-    font-size: 0.875rem;
-    color: #ff758f;
-    margin-bottom: 6px;
-    font-weight: 600;
-}
+    .period-card h2 {
+        font-size: 1.125rem;
+        color: var(--text-color);
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
 
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #fff0f3;
-    border-radius: 10px;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s;
-}
+    /* Chart card specific adjustments for the new layout */
+    .chart-card {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        /* Removed grid-row: span 2 as it is handled by grid-area now */
+    }
 
-.input-group input:focus {
-    border-color: #ffb3c1;
-}
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .period-main-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                "chart settings"
+                "chart insights"
+                "symptoms symptoms";
+        }
+    }
 
-.symptom-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+    .chart-container {
+        flex: 1;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.symptom-tags button {
-    padding: 8px 16px;
-    background: #fff0f3;
-    border: none;
-    border-radius: 50px;
-    color: #ff758f;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
+    .day-display {
+        position: absolute;
+        text-align: center;
+        pointer-events: none;
+    }
 
-.symptom-tags button.active {
-    background: #ff4d6d;
-    color: white;
-    transform: scale(1.05);
-}
+    .day-display span {
+        display: block;
+        font-size: 0.875rem;
+        color: var(--secondary-text);
+        text-transform: uppercase;
+    }
 
-.insights-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+    .day-display strong {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        line-height: 1;
+    }
 
-.insights-list li {
-    display: flex;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid #fff0f3;
-}
+    .input-group {
+        margin-bottom: 16px;
+    }
 
-.insights-list li:last-child {
-    border-bottom: none;
-}
+    .input-group label {
+        display: block;
+        font-size: 0.875rem;
+        color: var(--secondary-text);
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
 
-.insights-list p {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #590d22;
-    line-height: 1.4;
-}
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid var(--input-border);
+        border-radius: 10px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+        background: transparent;
+        color: var(--text-color);
+    }
 
-.insights-list strong {
-    color: #ff4d6d;
-}
+    .input-group input:focus {
+        border-color: var(--accent-color);
+    }
+
+    /* Ensure symptoms card spans full width at the bottom */
+    /* .symptoms-card rule removed */
+
+    .symptom-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .symptom-tags button {
+        padding: 8px 16px;
+        background: var(--input-bg);
+        border: none;
+        border-radius: 50px;
+        color: var(--secondary-text);
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .symptom-tags button.active {
+        background: var(--accent-color);
+        color: var(--bg-color);
+        transform: scale(1.05);
+    }
+
+    .insights-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .insights-list li {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--sidebar-border);
+    }
+
+    .insights-list li:last-child {
+        border-bottom: none;
+    }
+
+    .insights-list p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--text-color);
+        line-height: 1.4;
+    }
+
+    .insights-list strong {
+        color: var(--accent-color);
+    }

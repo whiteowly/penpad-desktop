@@ -1,14 +1,13 @@
 .sleep-page {
     display: flex;
     min-height: 100vh;
-    background-color: #f0f4f8;
+    background-color: var(--bg-color);
 }
 
 .sleep-content {
-    margin-left: 60px;
     padding: 24px;
     flex: 1;
-    max-width: 1200px;
+    width: 100%;
 }
 
 .sleep-dashboard {
@@ -19,17 +18,17 @@
 }
 
 .stat-card {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     text-align: center;
-    border-bottom: 4px solid #5a67d8;
+    border-bottom: 4px solid var(--accent-color);
 }
 
 .stat-card h3 {
     font-size: 0.875rem;
-    color: #718096;
+    color: var(--secondary-text);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin: 0 0 8px 0;
@@ -38,7 +37,7 @@
 .stat-value {
     font-size: 2rem;
     font-weight: 800;
-    color: #2d3748;
+    color: var(--text-color);
     margin: 0;
 }
 
@@ -56,7 +55,7 @@
 
 .sleep-form-section,
 .sleep-history-section {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -65,7 +64,7 @@
 .sleep-form-section h2,
 .sleep-history-section h2 {
     font-size: 1.25rem;
-    color: #4a5568;
+    color: var(--secondary-text);
     margin-bottom: 24px;
 }
 
@@ -90,15 +89,17 @@
 .input-group label {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #4a5568;
+    color: var(--secondary-text);
 }
 
 .input-group input {
     padding: 10px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
+    background: transparent;
+    color: var(--text-color);
 }
 
 .quality-selector {
@@ -110,8 +111,8 @@
 .quality-selector button {
     flex: 1;
     padding: 10px;
-    background: #f7fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 1.125rem;
     cursor: pointer;
@@ -119,15 +120,15 @@
 }
 
 .quality-selector button.active {
-    background: #eef2ff;
-    border-color: #5a67d8;
+    background: var(--hover-bg);
+    border-color: var(--accent-color);
     transform: translateY(-2px);
 }
 
 .save-log-btn {
     padding: 12px;
-    background: #5a67d8;
-    color: white;
+    background: var(--accent-color);
+    color: var(--bg-color);
     border: none;
     border-radius: 8px;
     font-weight: 600;
@@ -137,7 +138,7 @@
 }
 
 .save-log-btn:hover {
-    background: #4c51bf;
+    background: var(--text-color);
 }
 
 .log-list {
@@ -151,9 +152,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    background: #f8fafc;
+    background: var(--bg-color);
     border-radius: 12px;
-    border-left: 4px solid #5a67d8;
+    border-left: 4px solid var(--accent-color);
 }
 
 .log-info {
@@ -163,12 +164,12 @@
 
 .log-date {
     font-weight: 700;
-    color: #2d3748;
+    color: var(--text-color);
 }
 
 .log-times {
     font-size: 0.875rem;
-    color: #718096;
+    color: var(--secondary-text);
 }
 
 .log-stats {
@@ -179,7 +180,7 @@
 
 .log-duration {
     font-weight: 800;
-    color: #2d3748;
+    color: var(--text-color);
     font-size: 1.125rem;
 }
 
@@ -190,18 +191,18 @@
 .delete-btn {
     background: none;
     border: none;
-    color: #cbd5e0;
+    color: var(--input-border);
     font-size: 1.5rem;
     cursor: pointer;
     line-height: 1;
 }
 
 .delete-btn:hover {
-    color: #e53e3e;
+    color: var(--text-color);
 }
 
 .empty-msg {
     text-align: center;
-    color: #a0aec0;
+    color: var(--secondary-text);
     padding: 24px 0;
 }

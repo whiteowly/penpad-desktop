@@ -8,7 +8,7 @@ import ErrorBoundary from "../ErrorBoundary";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Calendar, AlertCircle, Sparkles, Activity } from "lucide-react";
 
-const COLORS = ["#ff4d6d", "#ff758f", "#ffb3c1", "#80ed99"];
+const COLORS = ["#717171", "#8c8c8c", "#a9a9a9", "#cbcbcb"];
 const PHASES = [
   { name: "Menstrual", value: 5 },
   { name: "Follicular", value: 9 },
@@ -70,10 +70,10 @@ function PeriodTracker() {
       dayInCycle <= 15 ? "Ovulation" : "Luteal";
 
   const chartData = [
-    { name: "Menstrual", value: 5, color: "#ff4d6d" },
-    { name: "Follicular", value: 9, color: "#ffb3c1" },
-    { name: "Ovulation", value: 1, color: "#c9184a" },
-    { name: "Luteal", value: cycleLength - 15, color: "#590d22" },
+    { name: "Menstrual", value: 5, color: "#717171" },
+    { name: "Follicular", value: 9, color: "#8c8c8c" },
+    { name: "Ovulation", value: 1, color: "#a9a9a9" },
+    { name: "Luteal", value: cycleLength - 15, color: "#cbcbcb" },
   ];
 
   return (
@@ -121,7 +121,7 @@ function PeriodTracker() {
                       />
                     ))}
                   </Pie>
-                  <Tooltip cursor={{ stroke: '#ff4d6d', strokeWidth: 2 }} />
+                  <Tooltip cursor={{ stroke: '#8c8c8c', strokeWidth: 2 }} />
                   <Legend verticalAlign="bottom" height={36} />
                 </PieChart>
               </ResponsiveContainer>
@@ -153,7 +153,7 @@ function PeriodTracker() {
             </div>
           </section>
 
-          {/* Symptoms Section */}
+
           <section className="period-card symptoms-card">
             <h2>Today's Symptoms</h2>
             <div className="symptom-tags">
@@ -169,20 +169,19 @@ function PeriodTracker() {
             </div>
           </section>
 
-          {/* Insights Section */}
           <section className="period-card insights-card">
             <h2>Daily Insights</h2>
             <ul className="insights-list">
               <li>
-                <Sparkles size={18} color="#ff4d6d" />
+                <Sparkles size={18} color="#717171" />
                 <p>Fertility is <strong>{dayInCycle >= 10 && dayInCycle <= 16 ? "High" : "Low"}</strong> today.</p>
               </li>
               <li>
-                <Activity size={18} color="#ff4d6d" />
+                <Activity size={18} color="#717171" />
                 <p>Stay hydrated to reduce common <strong>{currentPhase}</strong> symptoms.</p>
               </li>
               <li>
-                <AlertCircle size={18} color="#ff4d6d" />
+                <AlertCircle size={18} color="#717171" />
                 <p>Next period starts in <strong>{cycleLength - dayInCycle}</strong> days.</p>
               </li>
             </ul>

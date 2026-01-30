@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-// import './NewUser.css';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import './NewUser.css';
 
 
 export default function NewUser() {
@@ -9,6 +9,7 @@ export default function NewUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
@@ -19,7 +20,11 @@ export default function NewUser() {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      await updateProfile(userCredential.user, {
+        displayName: username
+      });
 
       navigate('/existing-user');
     } catch (error) {
@@ -29,7 +34,7 @@ export default function NewUser() {
 
   return (
     <div className="auth-container">
-      <img src='./logo.png' alt="Logo" className="logo" />
+      <h1 className="logo-text">penpad</h1>
       <h2>Welcome!!</h2>
       <p className="subtitle">Create an account to get started</p>
 

@@ -45,9 +45,7 @@ const Profile = () => {
 
     return (
         <div className="profile-container">
-            <div className="profile-header">
-                <h1>My Profile</h1>
-            </div>
+
 
             <div className="profile-card">
                 <div className="avatar-section">
@@ -58,6 +56,7 @@ const Profile = () => {
                             <User size={60} />
                         )}
                     </div>
+                    <h2 className="profile-name">{user?.displayName || "User"}</h2>
                     <p className="profile-email">{user?.email}</p>
                 </div>
 

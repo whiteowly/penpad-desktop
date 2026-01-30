@@ -114,7 +114,6 @@ export default function BudgetTracker() {
     <div className="budget-page">
 
       <div className="budget-content">
-        <h1>Budget Tracker</h1>
 
         <div className="budget-summary">
           <div className="summary-card balance">

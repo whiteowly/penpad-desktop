@@ -80,7 +80,7 @@ export default function Journal() {
     <div className="journal-page">
       <div className="journal-content">
         <header className="journal-header">
-          <h1>My Journal</h1>
+
         </header>
 
         <div className="journal-grid">
