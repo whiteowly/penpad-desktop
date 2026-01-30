@@ -119,16 +119,16 @@ export default function BudgetTracker() {
           <div className="summary-card balance">
             <h3>Net Balance</h3>
             <p className={balance >= 0 ? "positive" : "negative"}>
-              ${balance.toFixed(2)}
+              Birr {balance.toFixed(2)}
             </p>
           </div>
           <div className="summary-card income">
             <h3>Total Income</h3>
-            <p>${income.toFixed(2)}</p>
+            <p>Birr {income.toFixed(2)}</p>
           </div>
           <div className="summary-card expenses">
             <h3>Total Expenses</h3>
-            <p>${expenses.toFixed(2)}</p>
+            <p>Birr {expenses.toFixed(2)}</p>
           </div>
         </div>
 
@@ -197,7 +197,7 @@ export default function BudgetTracker() {
                     </div>
                     <div className="transaction-amount-group">
                       <span className="transaction-amount">
-                        {t.type === "income" ? "+" : "-"}${t.amount.toFixed(2)}
+                        {t.type === "income" ? "+" : "-"} Birr {t.amount.toFixed(2)}
                       </span>
                       <button
                         className="delete-btn"

@@ -35,15 +35,15 @@ export default function NewUser() {
   return (
     <div className="auth-container">
       <h1 className="logo-text">penpad</h1>
-      <h2>Welcome!!</h2>
+     
       <p className="subtitle">Create an account to get started</p>
 
       <form onSubmit={handleSubmit}>
         <input name='username' type='username' placeholder='Username' required />
-        <input name="email" type="email" placeholder="Email" />
+        <input name="email" type="email" placeholder="Email" required />
         <input name="password" type="password" placeholder="Password" required />
         <input name="confirmPassword" type="password" placeholder="Confirm Password" required />
-        <span onClick={() => navigate('/existing-user')}> <button type="submit">Sign Up</button></span>
+       <button type="submit">Sign Up</button>
 
       </form>
 

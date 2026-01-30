@@ -78,6 +78,8 @@
     color: var(--accent-color);
     cursor: pointer;
     font-weight: 600;
+    transition: text-decoration 0.2s;
+    width: fit-content;
 }
 
 .switch-link span:hover {
