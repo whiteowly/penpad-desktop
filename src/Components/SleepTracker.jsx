@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./SleepTracker.css";
-import Sidebar from "./sidebar";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
@@ -112,7 +111,7 @@ export default function SleepTracker() {
 
   return (
     <div className="sleep-page">
-      <Sidebar />
+
       <div className="sleep-content">
         <h1>Sleep Tracker</h1>
 

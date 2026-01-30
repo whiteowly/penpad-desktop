@@ -4,24 +4,24 @@
 }
 
 .sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
   width: 70px;
+  min-width: 70px;
   height: 100vh;
   background-color: var(--sidebar-bg);
   color: var(--text-color);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  z-index: 1000;
-  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--sidebar-border);
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .sidebar:hover {
   width: 260px;
+  min-width: 260px;
 }
 
 .logo-container {
@@ -167,7 +167,7 @@ body {
   margin: 0;
 }
 
-/* For direct children of pages that aren't the sidebar */
+/* Main content area */
 .main-content,
 .budget-content,
 .sleep-content,
@@ -175,6 +175,6 @@ body {
 .summary-content,
 .period-content,
 .profile-container {
-  margin-left: 70px !important;
-  transition: margin-left 0.3s ease;
+  flex: 1;
+  transition: all 0.3s ease;
 }

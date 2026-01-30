@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import "./PeriodTracker.css";
-import Sidebar from "./sidebar";
+import "./PeriodTracker.css";
+
 import { db } from "../firebase";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../AuthContext";
@@ -78,7 +78,7 @@ function PeriodTracker() {
 
   return (
     <div className="period-page">
-      <Sidebar />
+
       <div className="period-content">
         <header className="period-header">
           <h1>Cycle Tracker</h1>

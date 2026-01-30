@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Summary.css";
-import Sidebar from "./sidebar";
+
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
@@ -78,7 +78,7 @@ export default function Summary() {
 
   return (
     <div className="summary-page">
-      <Sidebar />
+
       <div className="summary-content">
         <div className="summary-header">
           <h1>Day Summary</h1>

@@ -1,29 +1,24 @@
 :root {
+  /* Grayscale Color Palette */
+  --color-gray-1: #717171;
+  --color-gray-2: #8c8c8c;
+  --color-gray-3: #a9a9a9;
+  --color-gray-4: #ebecf0;
+  --color-gray-5: #dddddd;
+  --color-gray-6: #cbcbcb;
+
+  /* Application Variables */
   --bg-color: #ffffff;
-  --text-color: #590d22;
-  --sidebar-bg: #fff0f3;
-  --sidebar-border: #ffccd5;
-  --accent-color: #ff4d6d;
-  --hover-bg: #fff8f9;
-  --active-bg: #ffeaed;
-  --secondary-text: #ff758f;
+  --text-color: #000000;
+  --sidebar-bg: var(--color-gray-4);
+  --sidebar-border: var(--color-gray-5);
+  --accent-color: var(--color-gray-2);
+  --hover-bg: var(--color-gray-4);
+  --active-bg: var(--color-gray-5);
+  --secondary-text: var(--color-gray-3);
   --card-bg: #ffffff;
   --input-bg: #ffffff;
-  --input-border: #ffccd5;
-}
-
-[data-theme='dark'] {
-  --bg-color: #1a1a1a;
-  --text-color: #ffb3c1;
-  --sidebar-bg: #2d0a12;
-  --sidebar-border: #590d22;
-  --accent-color: #ff758f;
-  --hover-bg: #3d121c;
-  --active-bg: #4d1a26;
-  --secondary-text: #ff8fa3;
-  --card-bg: #262626;
-  --input-bg: #333333;
-  --input-border: #590d22;
+  --input-border: var(--color-gray-6);
 }
 
 * {
@@ -31,13 +26,10 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-<<<<<<< HEAD
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
-=======
->>>>>>> refs/remotes/origin/main
 }

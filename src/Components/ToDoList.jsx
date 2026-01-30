@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./ToDoList.css";
-import Sidebar from "./sidebar";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
@@ -94,7 +93,7 @@ export default function ToDoList() {
 
   return (
     <div className="todo-page">
-      <Sidebar />
+
       <div className="todo-content">
         <header className="todo-header">
           <h1>Productivity</h1>

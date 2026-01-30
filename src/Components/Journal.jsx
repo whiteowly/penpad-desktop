@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-// import "./Journal.css";
-=======
 import "./Journal.css";
->>>>>>> refs/remotes/origin/main
-import Sidebar from "./sidebar";
 import { auth, db } from "../firebase";
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
@@ -83,7 +78,6 @@ export default function Journal() {
 
   return (
     <div className="journal-page">
-      <Sidebar />
       <div className="journal-content">
         <header className="journal-header">
           <h1>My Journal</h1>

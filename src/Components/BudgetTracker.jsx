@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 // import "./BudgetTracker.css";
-import Sidebar from "./sidebar";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
@@ -113,7 +112,7 @@ export default function BudgetTracker() {
 
   return (
     <div className="budget-page">
-      <Sidebar />
+
       <div className="budget-content">
         <h1>Budget Tracker</h1>
 

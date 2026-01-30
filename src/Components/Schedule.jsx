@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Schedule.css";
-import Sidebar from "./sidebar";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
@@ -152,7 +151,7 @@ export default function Schedule() {
 
   return (
     <div className="schedule-page">
-      <Sidebar />
+
       <div className="schedule-content">
         <h1>Schedule</h1>
 
