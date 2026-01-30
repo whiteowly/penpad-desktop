@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 // import "./Journal.css";
+=======
+import "./Journal.css";
+>>>>>>> refs/remotes/origin/main
 import Sidebar from "./sidebar";
 import { auth, db } from "../firebase";
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";

@@ -1,0 +1,270 @@
+.todo-page {
+	display: flex;
+	min-height: 100vh;
+	background-color: #f0f7ff;
+}
+
+.todo-content {
+	margin-left: 70px;
+	padding: 40px;
+	flex: 1;
+	max-width: 900px;
+	margin-right: auto;
+}
+
+.todo-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 32px;
+}
+
+.todo-header h1 {
+	font-size: 2.25rem;
+	color: #1e3a8a;
+	margin: 0;
+	font-weight: 800;
+}
+
+.stats-row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.stat-pill {
+	background: white;
+	padding: 6px 16px;
+	border-radius: 50px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 0.875rem;
+	color: #3b82f6;
+	font-weight: 600;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.clear-btn {
+	background: none;
+	border: 1px solid #bfdbfe;
+	color: #2563eb;
+	padding: 6px 16px;
+	border-radius: 50px;
+	font-size: 0.875rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.clear-btn:hover {
+	background: #dbeafe;
+	border-color: #2563eb;
+}
+
+/* Progress Bar */
+.progress-section {
+	background: white;
+	padding: 24px;
+	border-radius: 16px;
+	margin-bottom: 32px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.progress-info {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+	font-weight: 700;
+	color: #1e40af;
+	font-size: 0.9rem;
+}
+
+.progress-bar-bg {
+	height: 10px;
+	background: #eff6ff;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.progress-bar-fill {
+	height: 100%;
+	background: linear-gradient(90deg, #3b82f6, #2563eb);
+	border-radius: 10px;
+	transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Input Card */
+.todo-input-card {
+	background: white;
+	padding: 12px 12px 12px 24px;
+	border-radius: 16px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 32px;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.input-group {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.input-group input {
+	flex: 1;
+	border: none;
+	font-size: 1.1rem;
+	outline: none;
+	color: #1e3a8a;
+	font-weight: 500;
+}
+
+.input-group select {
+	padding: 6px 12px;
+	border-radius: 8px;
+	border: 1px solid #e2e8f0;
+	background: #f8fafc;
+	color: #64748b;
+	font-weight: 600;
+	outline: none;
+	cursor: pointer;
+}
+
+.add-fab {
+	width: 48px;
+	height: 48px;
+	border-radius: 12px;
+	background: #2563eb;
+	color: white;
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: transform 0.2s, background 0.2s;
+}
+
+.add-fab:hover {
+	background: #1d4ed8;
+	transform: scale(1.05);
+}
+
+/* Tasks Grid */
+.modern-todo-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.modern-todo-item {
+	background: white;
+	padding: 16px 20px;
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	transition: all 0.2s;
+	border: 1px solid #eff6ff;
+}
+
+.modern-todo-item:hover {
+	transform: translateX(4px);
+	border-color: #dbeafe;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.task-main {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex: 1;
+	cursor: pointer;
+}
+
+.check-icon {
+	color: #cbd5e1;
+	transition: color 0.2s;
+}
+
+.check-icon.done {
+	color: #22c55e;
+}
+
+.task-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.task-text {
+	font-size: 1.05rem;
+	color: #1e293b;
+	font-weight: 500;
+	transition: color 0.2s;
+}
+
+.task-done .task-text {
+	color: #94a3b8;
+	text-decoration: line-through;
+}
+
+.cat-tag {
+	font-size: 0.7rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 2px 8px;
+	border-radius: 4px;
+	width: fit-content;
+}
+
+.cat-tag.personal {
+	background: #fee2e2;
+	color: #991b1b;
+}
+
+.cat-tag.work {
+	background: #dcfce7;
+	color: #166534;
+}
+
+.cat-tag.shopping {
+	background: #fef9c3;
+	color: #854d0e;
+}
+
+.cat-tag.health {
+	background: #e0f2fe;
+	color: #075985;
+}
+
+.item-delete {
+	background: none;
+	border: none;
+	color: #cbd5e1;
+	padding: 8px;
+	cursor: pointer;
+	border-radius: 8px;
+	transition: all 0.2s;
+}
+
+.item-delete:hover {
+	background: #fef2f2;
+	color: #ef4444;
+}
+
+.empty-state {
+	text-align: center;
+	padding: 60px 0;
+	color: #94a3b8;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+}
