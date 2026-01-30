@@ -101,144 +101,157 @@
     }
 
     /* Ensure height consistency */
-    .period-card {
-        background: var(--card-bg);
-        padding: 24px;
-        border-radius: 20px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-    }
-
-    .period-card h2 {
-        font-size: 1.125rem;
-        color: var(--text-color);
-        margin-bottom: 20px;
-        font-weight: 700;
-    }
-
-    /* Chart card specific adjustments for the new layout */
+    /* Ensure height consistency */
     .chart-card {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        /* Removed grid-row: span 2 as it is handled by grid-area now */
+        height: 100%;
     }
+}
 
-    @media (min-width: 768px) and (max-width: 1199px) {
-        .period-main-grid {
-            grid-template-columns: 1fr 1fr;
-            grid-template-areas:
-                "chart settings"
-                "chart insights"
-                "symptoms symptoms";
-        }
+/* Close @media (min-width: 1200px) */
+
+.period-card {
+    background: var(--card-bg);
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.period-card h2 {
+    font-size: 1.125rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Chart card specific adjustments for the new layout */
+.chart-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* Removed grid-row: span 2 as it is handled by grid-area now */
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .period-main-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "chart settings"
+            "chart insights"
+            "symptoms symptoms";
     }
+}
 
-    .chart-container {
-        flex: 1;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.chart-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .day-display {
-        position: absolute;
-        text-align: center;
-        pointer-events: none;
-    }
+.day-display {
+    position: absolute;
+    text-align: center;
+    pointer-events: none;
+}
 
-    .day-display span {
-        display: block;
-        font-size: 0.875rem;
-        color: var(--secondary-text);
-        text-transform: uppercase;
-    }
+.day-display span {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+}
 
-    .day-display strong {
-        font-size: 2.5rem;
-        color: var(--text-color);
-        line-height: 1;
-    }
+.day-display strong {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    line-height: 1;
+}
 
-    .input-group {
-        margin-bottom: 16px;
-    }
+.input-group {
+    margin-bottom: 16px;
+}
 
-    .input-group label {
-        display: block;
-        font-size: 0.875rem;
-        color: var(--secondary-text);
-        margin-bottom: 6px;
-        font-weight: 600;
-    }
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--secondary-text);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
 
-    .input-group input {
-        width: 100%;
-        padding: 10px;
-        border: 2px solid var(--input-border);
-        border-radius: 10px;
-        font-size: 1rem;
-        outline: none;
-        transition: border-color 0.2s;
-        background: transparent;
-        color: var(--text-color);
-    }
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--input-border);
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: transparent;
+    color: var(--text-color);
+}
 
-    .input-group input:focus {
-        border-color: var(--accent-color);
-    }
+.input-group input:focus {
+    border-color: var(--accent-color);
+}
 
-    /* Ensure symptoms card spans full width at the bottom */
-    /* .symptoms-card rule removed */
+/* Ensure symptoms card spans full width at the bottom */
+/* .symptoms-card rule removed */
 
-    .symptom-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+/* Specific adjustment to reduce height */
+.symptoms-card {
+    padding: 20px;
+}
 
-    .symptom-tags button {
-        padding: 8px 16px;
-        background: var(--input-bg);
-        border: none;
-        border-radius: 50px;
-        color: var(--secondary-text);
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
+.symptom-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
 
-    .symptom-tags button.active {
-        background: var(--accent-color);
-        color: var(--bg-color);
-        transform: scale(1.05);
-    }
+.symptom-tags button {
+    padding: 6px 12px;
+    background: var(--input-bg);
+    border: none;
+    border-radius: 50px;
+    color: var(--secondary-text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
 
-    .insights-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+.symptom-tags button.active {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    transform: scale(1.05);
+}
 
-    .insights-list li {
-        display: flex;
-        gap: 12px;
-        padding: 12px 0;
-        border-bottom: 1px solid var(--sidebar-border);
-    }
+.insights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-    .insights-list li:last-child {
-        border-bottom: none;
-    }
+.insights-list li {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--sidebar-border);
+}
 
-    .insights-list p {
-        margin: 0;
-        font-size: 0.95rem;
-        color: var(--text-color);
-        line-height: 1.4;
-    }
+.insights-list li:last-child {
+    border-bottom: none;
+}
 
-    .insights-list strong {
-        color: var(--accent-color);
-    }
+.insights-list p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+.insights-list strong {
+    color: var(--accent-color);
+}
