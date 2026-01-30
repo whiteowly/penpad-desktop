@@ -1,18 +1,23 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
   width: 70px;
   height: 100vh;
-  background-color: #fff0f3;
-  color: #590d22;
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   z-index: 1000;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #ffccd5;
+  border-right: 1px solid var(--sidebar-border);
 }
 
 .sidebar:hover {
@@ -49,18 +54,18 @@
   padding: 14px 24px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #ff758f;
+  color: var(--secondary-text);
   position: relative;
 }
 
 .menu-item:hover {
-  background: #fff8f9;
-  color: #ff4d6d;
+  background: var(--hover-bg);
+  color: var(--accent-color);
 }
 
 .menu-item.active {
-  background: #ffeaed;
-  color: #ff4d6d;
+  background: var(--active-bg);
+  color: var(--accent-color);
   font-weight: 700;
 }
 
@@ -71,7 +76,7 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background-color: #ff4d6d;
+  background-color: var(--accent-color);
 }
 
 .icon-wrapper {
@@ -93,6 +98,70 @@
   opacity: 1;
 }
 
+/* Profile Section in Sidebar */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  padding: 15px 18px;
+  cursor: pointer;
+  border-top: 1px solid var(--sidebar-border);
+  transition: background 0.2s;
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.sidebar-profile:hover {
+  background: var(--hover-bg);
+}
+
+.sidebar-profile.active {
+  background: var(--active-bg);
+}
+
+.profile-image-wrapper {
+  min-width: 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--active-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-color);
+  border: 1px solid var(--sidebar-border);
+}
+
+.profile-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.sidebar:hover .profile-info {
+  opacity: 1;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.profile-subtext {
+  font-size: 0.75rem;
+  color: var(--secondary-text);
+}
+
 /* Ensure content doesn't get covered by the collapsed sidebar */
 body {
   margin: 0;
@@ -104,7 +173,8 @@ body {
 .sleep-content,
 .custom-lists-content,
 .summary-content,
-.period-content {
+.period-content,
+.profile-container {
   margin-left: 70px !important;
   transition: margin-left 0.3s ease;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./PeriodTracker.css";
+// import "./PeriodTracker.css";
 import Sidebar from "./sidebar";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import './NewUser.css';
+// import './NewUser.css';
 
 
 export default function NewUser() {
@@ -20,7 +20,7 @@ export default function NewUser() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-     
+
       navigate('/existing-user');
     } catch (error) {
       alert(error.message);
@@ -34,12 +34,12 @@ export default function NewUser() {
       <p className="subtitle">Create an account to get started</p>
 
       <form onSubmit={handleSubmit}>
-        <input name='username' type='username' placeholder='Username'required/>
+        <input name='username' type='username' placeholder='Username' required />
         <input name="email" type="email" placeholder="Email" />
         <input name="password" type="password" placeholder="Password" required />
         <input name="confirmPassword" type="password" placeholder="Confirm Password" required />
         <span onClick={() => navigate('/existing-user')}> <button type="submit">Sign Up</button></span>
-       
+
       </form>
 
       <p className="switch-link">

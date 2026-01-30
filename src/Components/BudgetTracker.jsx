@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./BudgetTracker.css";
+// import "./BudgetTracker.css";
 import Sidebar from "./sidebar";
 import { useAuth } from "../AuthContext";
 import { db } from "../firebase";

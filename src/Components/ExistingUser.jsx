@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
-import './ExistingUser.css'; // Shared styles
+// import './ExistingUser.css'; // Shared styles
 
 
 export default function ExistingUser() {
@@ -14,7 +14,7 @@ export default function ExistingUser() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-     
+
       navigate('/dashboard'); // Redirect to dashboard after login
     } catch (error) {
       alert(error.message);

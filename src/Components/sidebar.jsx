@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 import {
   Notebook,
   Calendar,
@@ -8,13 +9,15 @@ import {
   Moon,
   Clock,
   Plus,
-  LayoutDashboard
+  LayoutDashboard,
+  User
 } from "lucide-react";
 import "./Sidebar.css";
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [isHovered, setIsHovered] = useState(false);
 
   if (location.pathname === "/dashboard") return null;
@@ -38,9 +41,10 @@ const Sidebar = () => {
     >
       <div className="logo-container">
         <img
-          src={isHovered ? "/logoHover.png" : "/logo.png"}
+          src={isHovered ? "/logo.png" : "/logoHover.png"}
           alt="Penpad Logo"
           className="logo"
+          onClick={() => navigate("/dashboard")}
         />
       </div>
       <ul className="menu-list">
@@ -55,6 +59,23 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
+
+      <div
+        className={`sidebar-profile ${location.pathname === "/profile" ? "active" : ""}`}
+        onClick={() => navigate("/profile")}
+      >
+        <div className="profile-image-wrapper">
+          {user?.photoURL ? (
+            <img src={user.photoURL} alt="User" />
+          ) : (
+            <User size={22} />
+          )}
+        </div>
+        <div className="profile-info">
+          <span className="profile-name">{user?.displayName || "User"}</span>
+          <span className="profile-subtext">View Profile</span>
+        </div>
+      </div>
     </div>
   );
 };

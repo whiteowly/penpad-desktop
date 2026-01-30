@@ -1,6 +1,40 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #590d22;
+  --sidebar-bg: #fff0f3;
+  --sidebar-border: #ffccd5;
+  --accent-color: #ff4d6d;
+  --hover-bg: #fff8f9;
+  --active-bg: #ffeaed;
+  --secondary-text: #ff758f;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #ffccd5;
+}
+
+[data-theme='dark'] {
+  --bg-color: #1a1a1a;
+  --text-color: #ffb3c1;
+  --sidebar-bg: #2d0a12;
+  --sidebar-border: #590d22;
+  --accent-color: #ff758f;
+  --hover-bg: #3d121c;
+  --active-bg: #4d1a26;
+  --secondary-text: #ff8fa3;
+  --card-bg: #262626;
+  --input-bg: #333333;
+  --input-border: #590d22;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
