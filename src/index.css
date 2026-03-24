@@ -20,7 +20,21 @@
   --card-bg: var(--color-gray-5);
   --input-bg: var(--color-gray-6);
   --input-border: var(--color-gray-3);
+  --transition-speed: 0.3s;
+}
 
+[data-theme='dark'] {
+  --bg-color: var(--color-gray-1);
+  --text-color: var(--color-gray-6);
+  --sidebar-bg: var(--color-gray-2);
+  --sidebar-border: var(--color-gray-3);
+  --accent-color: var(--color-gray-5);
+  --hover-bg: var(--color-gray-2);
+  --active-bg: var(--color-gray-3);
+  --secondary-text: var(--color-gray-4);
+  --card-bg: var(--color-gray-2);
+  --input-bg: var(--color-gray-1);
+  --input-border: var(--color-gray-3);
 }
 
 * {
@@ -34,5 +48,5 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
